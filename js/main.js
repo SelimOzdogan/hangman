@@ -1,5 +1,7 @@
 // These are some event handlers to make the demo work well.
 // Don't change them unless you know what you're doing!
+
+
 $(document).ready(function () {
     $('#reset').click(function () {
         document.location.reload();
@@ -60,17 +62,21 @@ function addClickToButtons() {
         clearAll();
     });
 }
+question = "";
 function clearAll() {
     FailureCount = 0;
     $("#letters_div").find("div").removeClass("selected");
+    question = CaData[Math.floor(Math.random() * CaData.length)];
     createQuestion();
     changeImage()
 }
 function changeImage() {
     $("#gallows").attr("src", "images/gallows_" + FailureCount + ".svg");
 }
+
+
 function getQuestion() {
-    return "Selim".toUpperCase();
+    return question.toUpperCase();
 }
 
 function checkLetter(letter) {
@@ -91,7 +97,8 @@ function checkLetter(letter) {
 
 function checkIsItFinished() {
     if (FailureCount == 6) {
-        alert("fail");
+
+        alert(question);
     }
     else {
         let result = $("#question_letters_div")
