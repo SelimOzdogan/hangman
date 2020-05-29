@@ -26,3 +26,9 @@
     background-color: gray;
     color: whitesmoke;
 }
+.buttons div{
+    border: solid indigo;
+}
+.buttons{
+    display: flex;
+}
