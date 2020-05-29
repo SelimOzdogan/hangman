@@ -13,6 +13,16 @@ $(document).ready(function () {
 
 window.addEventListener('DOMContentLoaded', (e) => {
     createLetters($("#letters_div"));
+    // $("#letter_A").click(function(){
+    //         alert("");
+
+    // });
+    $("#letters_div").find("div").map(function () {
+        $("#" + this.id).click(function () {
+            console.log(this.innerHTML);
+            this.classList.add("selected");
+        })
+    });
 });
 
 function createLetters(letters_ul) {
@@ -29,8 +39,9 @@ function createLetter(letter) {
     letter_div.id = 'letter_' + letter;
     letter_div.classList.add('letter_div')
     letter_div.innerHTML = letter;
-    letter_div.click(function () {
-        alert( "Handler for .click() called." );
-    });
     return letter_div;
+}
+
+function checkLetter(){
+
 }
