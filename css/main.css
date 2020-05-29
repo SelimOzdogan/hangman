@@ -12,7 +12,6 @@
 }
 
 .letter_div {
-    list-style-type: none;
     border: solid black 1px;
     margin: 3px;
     font-size: 25px;
@@ -25,10 +24,28 @@
 .selected{
     background-color: gray;
     color: whitesmoke;
+    pointer-events: none;
 }
 .buttons div{
     border: solid indigo;
 }
 .buttons{
     display: flex;
+}
+
+
+#question_letters_div {
+    margin: 50px;
+    display: flex;
+    max-width: 400px;
+}
+
+.question_letter_div {
+    margin: 3px;
+    font-size: 45px;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    text-decoration: underline;
+    /* font-family: cursive; */
 }
