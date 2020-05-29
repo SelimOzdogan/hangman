@@ -79,7 +79,6 @@ function checkLetter(letter) {
         q.split("").map(function (c, i) {
             if (c == letter) {
                 $("#question_letter_" + (i + 1))[0].innerHTML = letter;
-
             }
         })
     }
@@ -87,5 +86,14 @@ function checkLetter(letter) {
         FailureCount++;
         changeImage()
     }
-    checkIsitFinished();
+    checkIsItFinished();
+}
+
+function checkIsItFinished() {
+    if (FailureCount == 6) {
+        alert("fail");
+    }
+    else{
+
+    }
 }
