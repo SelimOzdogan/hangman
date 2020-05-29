@@ -93,7 +93,13 @@ function checkIsItFinished() {
     if (FailureCount == 6) {
         alert("fail");
     }
-    else{
-
+    else {
+        let result = $("#question_letters_div")
+            .find("div")
+            .map(function () { return (this.innerHTML == "&nbsp;&nbsp;" ? false : "") })
+            .toArray()
+            .join("");
+        if (result == "")
+            alert("win")
     }
 }
