@@ -9,6 +9,7 @@ $(document).ready(function () {
 
     $('form').submit(function (event) {
         event.preventDefault();
+
     });
 });
 
@@ -16,8 +17,12 @@ $(document).ready(function () {
 window.addEventListener('DOMContentLoaded', (e) => {
     createLetters();
     addClickToButtons();
+    document.addEventListener('keypress', logKey);
 });
 
+function logKey(e) {
+    eventWhenSelectALetter(e.key.toUpperCase());
+}
 let FailureCount = 0;
 
 function createLetters() {
@@ -42,20 +47,22 @@ function createQuestion() {
     let question_letters = $("#question_letters_div");
     question_letters.empty();
     for (let i = 1; i <= getQuestion().length; i += 1) {
-
         question_letters.append(createDiv("question_letter", i, "&nbsp;&nbsp;"));
     }
 }
 function addClickEvents(letters_div) {
     letters_div.find("div").map(function () {
         $("#" + this.id).click(function () {
-
-            console.log(this.innerHTML);
-            this.classList.add("selected");
-            checkLetter(this.innerHTML)
+            eventWhenSelectALetter(this.innerHTML)
         })
     });
 }
+function eventWhenSelectALetter(letter) {
+    letter_div = $("#letter_" + letter)[0];
+    letter_div.classList.add("selected");
+    checkLetter(letter_div.innerHTML)
+}
+
 function addClickToButtons() {
     const button = $("#newGame");
     button.click(function () {
@@ -74,31 +81,34 @@ function changeImage() {
     $("#gallows").attr("src", "images/gallows_" + FailureCount + ".svg");
 }
 
-
 function getQuestion() {
     return question.toUpperCase();
 }
 
-function checkLetter(letter) {
+function checkLetter(letter, dontCheckWinner) {
     let q = getQuestion();
     if (q.includes(letter)) {
         q.split("").map(function (c, i) {
             if (c == letter) {
                 $("#question_letter_" + (i + 1))[0].innerHTML = letter;
             }
-        })
+        });
     }
-    else {
+    else if (!dontCheckWinner) {
         FailureCount++;
         changeImage()
     }
-    checkIsItFinished();
+    if (!dontCheckWinner)
+        setTimeout(function () { checkIsItFinished(); }, 100);
 }
-
+function fillQuestion() {
+    getQuestion().split("").map(ch => checkLetter(ch, true));
+}
 function checkIsItFinished() {
     if (FailureCount == 6) {
+        fillQuestion();
+        setTimeout(function () { alert("You Fail!!\nThe answer is " + question); }, 100);
 
-        alert(question);
     }
     else {
         let result = $("#question_letters_div")
@@ -106,7 +116,9 @@ function checkIsItFinished() {
             .map(function () { return (this.innerHTML == "&nbsp;&nbsp;" ? false : "") })
             .toArray()
             .join("");
-        if (result == "")
-            alert("win")
+        if (result == "") {
+            alert("Winner !!")
+            clearAll();
+        }
     }
 }
