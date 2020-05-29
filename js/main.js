@@ -108,7 +108,6 @@ function checkIsItFinished() {
     if (FailureCount == 6) {
         fillQuestion();
         setTimeout(function () { alert("You Fail!!\nThe answer is " + question); }, 100);
-
     }
     else {
         let result = $("#question_letters_div")

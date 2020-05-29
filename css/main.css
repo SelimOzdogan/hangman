@@ -1,38 +1,59 @@
 .name {
     margin: 50px;
     font-family: cursive;
-    font-size: 25px;
+    font-size: 40px;
+    border-radius: 10px;
+    border: 2px solid silver;
+    padding: 5px;
+    text-align: center;
+    box-shadow: 8px 8px silver
 }
 
 #letters_div {
     margin: 50px;
     flex-flow: wrap;
     display: flex;
-    max-width: 400px;
+    max-width: 550px;
 }
 
 .letter_div {
-    border: solid black 1px;
-    margin: 3px;
+    margin: 5px;
     font-size: 25px;
     height: 30px;
     width: 30px;
     text-align: center;
-    /* font-family: cursive; */
+    border-radius: 10px;
+    border: 2px solid #73AD21;
+    padding: 5px;
+    box-shadow: 3px 3px #73AD21;
+}
+.letter_div:hover{
+    background-color: silver;
+    cursor: pointer;
 }
 
-.selected{
+.selected {
     background-color: gray;
     color: whitesmoke;
     pointer-events: none;
 }
-.buttons div{
-    border: solid indigo;
+
+.buttons div {
+    margin-left: 50px;
+
+    border-radius: 10px;
+    border: 2px solid #73AD21;
+    padding: 5px;
+    box-shadow: 3px 3px #73AD21;
 }
-.buttons{
-    display: flex;
+.buttons div:hover {
+    background-color: silver;
+    cursor: pointer;
 }
 
+.buttons {
+    display: flex;
+}
 
 #question_letters_div {
     margin: 50px;
@@ -44,8 +65,7 @@
     margin: 3px;
     font-size: 40px;
     height: 30px;
-    width: 35px;
+    width: 50px;
     text-align: center;
     text-decoration: underline;
-    /* font-family: cursive; */
 }

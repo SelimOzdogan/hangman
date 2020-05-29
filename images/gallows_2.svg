@@ -73,7 +73,7 @@
            sodipodi:open="true"
            d="m -142.6168,870.06226 a 12.999979,12.999934 0 0 1 13.22976,-12.74035 12.999979,12.999934 0 0 1 12.766,13.205 12.999979,12.999934 0 0 1 -13.18029,12.79151 12.999979,12.999934 0 0 1 -12.81707,-13.15544" />
         <path
-           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           style="fill:none;fill-rule:evenodd;stroke:#ff0000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
            d="m -129.375,884.50504 -0.0446,62.45536"
            id="path4222"
            inkscape:connector-curvature="0"
