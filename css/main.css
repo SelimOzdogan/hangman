@@ -1,0 +1,27 @@
+.name {
+    margin: 50px;
+    font-family: cursive;
+    font-size: 25px;
+}
+
+#letters_div {
+    margin: 50px;
+    flex-flow: wrap;
+    display: flex;
+    max-width: 400px;
+}
+
+.letter_div {
+    list-style-type: none;
+    border: solid black 1px;
+    margin: 3px;
+    font-size: 25px;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    /* font-family: cursive; */
+}
+
+.selected{
+    background-color: blue;
+}
