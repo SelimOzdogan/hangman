@@ -16,6 +16,8 @@ window.addEventListener('DOMContentLoaded', (e) => {
     addClickToButtons();
 });
 
+let FailureCount = 0;
+
 function createLetters() {
     let letters_div = $("#letters_div");
 
@@ -59,11 +61,14 @@ function addClickToButtons() {
     });
 }
 function clearAll() {
+    FailureCount = 0;
     $("#letters_div").find("div").removeClass("selected");
-    $("#gallows").attr.removeClass("selected");
     createQuestion();
+    changeImage()
 }
-
+function changeImage() {
+    $("#gallows").attr("src", "images/gallows_" + FailureCount + ".svg");
+}
 function getQuestion() {
     return "Selim".toUpperCase();
 }
@@ -74,12 +79,13 @@ function checkLetter(letter) {
         q.split("").map(function (c, i) {
             if (c == letter) {
                 $("#question_letter_" + (i + 1))[0].innerHTML = letter;
-                
+
             }
         })
     }
     else {
-
+        FailureCount++;
+        changeImage()
     }
     checkIsitFinished();
 }
