@@ -17,12 +17,20 @@ window.addEventListener('DOMContentLoaded', (e) => {
     fillScoreBoard();
     addClickToButtons();
     document.addEventListener('keypress', logKey);
+    setSoundEffect();
+
 });
 
 let FailureCount = 0;
 let FailCount = 0;
 let WinCount = 0;
 
+function setSoundEffect() {
+    let sound = document.createElement("audio");
+    sound.id = 'finishSound';
+    sound.src = 'sounds/wahwawav.mp3';
+    document.body.appendChild(sound);
+}
 
 function fillScoreBoard() {
     increaseScoreBoard("win", WinCount);
@@ -32,8 +40,6 @@ function fillScoreBoard() {
 function increaseScoreBoard(id, score = 0) {
     let div = $(`#${id}`).find(".score")[0];
     div.innerHTML = `${score}`;
-
-    debugger
 }
 function logKey(e) {
     eventWhenSelectALetter(e.key.toUpperCase());
@@ -125,6 +131,7 @@ function checkIsItFinished() {
     if (FailureCount == 6) {
         fillQuestion();
         FailCount += 1;
+        $("#finishSound")[0].play();
         if (confirm("You Fail!!\nThe answer is " + question + "\nDo you want to start new one?"))
             clearAll();
     }
@@ -141,3 +148,4 @@ function checkIsItFinished() {
         }
     }
 }
+
