@@ -18,7 +18,7 @@ window.addEventListener('DOMContentLoaded', (e) => {
     addClickToButtons();
     document.addEventListener('keypress', logKey);
     setSoundEffect();
-
+    clearAll();
 });
 
 let FailureCount = 0;
