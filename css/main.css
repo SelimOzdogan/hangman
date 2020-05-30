@@ -1,4 +1,4 @@
-.name {
+.title {
     margin: 50px;
     font-family: cursive;
     font-size: 40px;
@@ -14,7 +14,6 @@
 }
 
 #letters_div {
-    margin: 50px;
     flex-flow: wrap;
     display: flex;
 }
@@ -60,7 +59,7 @@
 }
 
 #question_letters_div {
-    margin: 50px;
+    margin-top: 40px;
     display: flex;
     justify-content: center;
 }
@@ -76,5 +75,30 @@
 
 .left {
     width: 60%;
-    max-width: 550px;
+    max-width: 650px;
+    margin: 20px 50px 50px 50px;
+}
+
+.scoreBoard {
+    border-radius: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: solid 2px silver;
+    display: flex;
+    box-shadow: 3px 3px gray;
+
+}
+
+.scoreBoard div {
+    display: flex;
+    margin: 5px 10px 5px 10px;
+}
+
+.scoreBoard .name {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.scoreBoard .score {
+    font-size: 20px;
 }

@@ -9,21 +9,35 @@ $(document).ready(function () {
 
     $('form').submit(function (event) {
         event.preventDefault();
-
     });
 });
 
-
 window.addEventListener('DOMContentLoaded', (e) => {
     createLetters();
+    fillScoreBoard();
     addClickToButtons();
     document.addEventListener('keypress', logKey);
 });
 
+let FailureCount = 0;
+let FailCount = 0;
+let WinCount = 0;
+
+
+function fillScoreBoard() {
+    increaseScoreBoard("win", WinCount);
+    increaseScoreBoard("fail", FailCount);
+    increaseScoreBoard("failure", FailureCount);
+}
+function increaseScoreBoard(id, score = 0) {
+    let div = $(`#${id}`).find(".score")[0];
+    div.innerHTML = `${score}`;
+
+    debugger
+}
 function logKey(e) {
     eventWhenSelectALetter(e.key.toUpperCase());
 }
-let FailureCount = 0;
 
 function createLetters() {
     let letters_div = $("#letters_div");
@@ -75,7 +89,8 @@ function clearAll() {
     $("#letters_div").find("div").removeClass("selected");
     question = CaData[Math.floor(Math.random() * CaData.length)];
     createQuestion();
-    changeImage()
+    changeImage();
+    fillScoreBoard();
 }
 function changeImage() {
     $("#gallows").attr("src", "images/gallows_" + FailureCount + ".svg");
@@ -98,8 +113,10 @@ function checkLetter(letter, dontCheckWinner) {
         FailureCount++;
         changeImage()
     }
-    if (!dontCheckWinner)
-        setTimeout(function () { checkIsItFinished(); }, 100);
+    if (!dontCheckWinner) {
+        fillScoreBoard();
+        checkIsItFinished();
+    }
 }
 function fillQuestion() {
     getQuestion().split("").map(ch => checkLetter(ch, true));
@@ -107,7 +124,9 @@ function fillQuestion() {
 function checkIsItFinished() {
     if (FailureCount == 6) {
         fillQuestion();
-        setTimeout(function () { alert("You Fail!!\nThe answer is " + question); }, 100);
+        FailCount += 1;
+        if (confirm("You Fail!!\nThe answer is " + question + "\nDo you want to start new one?"))
+            clearAll();
     }
     else {
         let result = $("#question_letters_div")
@@ -116,8 +135,9 @@ function checkIsItFinished() {
             .toArray()
             .join("");
         if (result == "") {
-            alert("Winner !!")
-            clearAll();
+            WinCount += 1;
+            if (confirm("Winner !!\nDo you want to start new one?"))
+                clearAll();
         }
     }
 }
