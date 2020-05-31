@@ -26,10 +26,14 @@ let FailCount = 0;
 let WinCount = 0;
 
 function setSoundEffect() {
-    let sound = document.createElement("audio");
-    sound.id = 'finishSound';
-    sound.src = 'sounds/wahwawav.mp3';
-    document.body.appendChild(sound);
+    let failsound = document.createElement("audio");
+    failsound.id = 'failsound';
+    failsound.src = 'sounds/fail.mp3';
+    document.body.appendChild(failsound);
+    let winsound = document.createElement("audio");
+    winsound.id = 'winsound';
+    winsound.src = 'sounds/win.mp3';
+    document.body.appendChild(winsound);
 }
 
 function fillScoreBoard() {
@@ -124,28 +128,79 @@ function checkLetter(letter, dontCheckWinner) {
         checkIsItFinished();
     }
 }
-function fillQuestion() {
-    getQuestion().split("").map(ch => checkLetter(ch, true));
-}
-function checkIsItFinished() {
-    if (FailureCount == 6) {
-        fillQuestion();
-        FailCount += 1;
-        $("#finishSound")[0].play();
-        if (confirm("You Fail!!\nThe answer is " + question + "\nDo you want to start new one?"))
-            clearAll();
+
+const failmethods = {
+    fillQuestion() {
+        return new Promise((resolve, reject) => {
+            getQuestion().split("").map(ch => checkLetter(ch, true));
+            FailCount += 1;
+            resolve('resolved');
+        });
+    },
+    sound() {
+        return new Promise((resolve, reject) => {
+            $("#failsound")[0].play();
+            setTimeout(() => {
+                resolve('resolved');
+            }, 500);
+        });
+    },
+    message() {
+        return new Promise((resolve, reject) => {
+            if (confirm("You Fail!!\nThe answer is " + question + "\nDo you want to start new one?"))
+                clearAll();
+            resolve('resolved');
+        });
     }
-    else {
-        let result = $("#question_letters_div")
-            .find("div")
-            .map(function () { return (this.innerHTML == "&nbsp;&nbsp;" ? false : "") })
-            .toArray()
-            .join("");
-        if (result == "") {
-            WinCount += 1;
+};
+const winmethods = {
+    checkQuestion() {
+        return new Promise((resolve, reject) => {
+            let result = $("#question_letters_div")
+                .find("div")
+                .map(function () { return (this.innerHTML == "&nbsp;&nbsp;" ? false : "") })
+                .toArray()
+                .join("");
+            resolve(result);
+        });
+    },
+    sound(result) {
+        return new Promise((resolve, reject) => {
+            if (result == "") {
+                WinCount += 1;
+                $("#winsound")[0].play();
+                setTimeout(() => {
+                    resolve('resolved');
+                }, 500);
+            }
+            else {
+            }
+        });
+    },
+    message() {
+        return new Promise((resolve, reject) => {
             if (confirm("Winner !!\nDo you want to start new one?"))
                 clearAll();
-        }
+            resolve('resolved');
+        });
+    }
+};
+
+function checkIsItFinished() {
+    if (FailureCount == 6) {
+        failmethods
+            .fillQuestion()
+            .then(() => failmethods.sound())
+            // .then(async () => await failmethods.sound())
+            .then(() => failmethods.message())
+            // .then(async () => await failmethods.message())
+            .catch(console.error);
+    }
+    else {
+        winmethods
+            .checkQuestion()
+            .then((result) => winmethods.sound(result))
+            .then(() => winmethods.message())
+            .catch(console.error);
     }
 }
-
