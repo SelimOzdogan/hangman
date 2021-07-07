@@ -1,6 +1,3 @@
-// These are some event handlers to make the demo work well.
-// Don't change them unless you know what you're doing!
-
 
 $(document).ready(function () {
     $('#reset').click(function () {
@@ -191,9 +188,7 @@ function checkIsItFinished() {
         failmethods
             .fillQuestion()
             .then(() => failmethods.sound())
-            // .then(async () => await failmethods.sound())
             .then(() => failmethods.message())
-            // .then(async () => await failmethods.message())
             .catch(console.error);
     }
     else {
